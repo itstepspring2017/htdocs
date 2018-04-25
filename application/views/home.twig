@@ -1,3 +1,23 @@
+<style>
+    .notes {
+        background: rgba(0, 137, 123, 0.33);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .notes div {
+        width: 200px;
+        background: red;
+        margin: 5px;
+
+    }
+
+    .notes div * {
+        width: 100%;
+        display: block;
+    }
+</style>
 <h3>add new note</h3>
 <form>
     <input type="text " name="n" id="name" required>
@@ -18,7 +38,6 @@
     var desk = document.querySelector("#desk");
     var getAll = document.querySelector("#getAll");
     var notes = document.querySelector(".notes");
-    var users = [];
 
 
     var Ajax = {
@@ -66,17 +85,17 @@
 
 
     function getAllNotes() {
+        notes.innerHTML = "";
         fetch("http://localhost/getAll")
             .then(res => res.json())
             .then(data => {
-                console.log(data);
-                notes.innerHTML="";
                 data.forEach(function (post) {
                     notes.innerHTML += `
-                        <div>
+                        <div class="nt">
                              <p>${post.id}</p>
                              <p>${post.name}</p>
                              <p>${post.description}</p>
+                             <button data-id="${post.id}" >del</button>
                         </div>
                     `;
                 })
@@ -84,6 +103,19 @@
 
 
     }
+
+    notes.addEventListener("click", function (e) {
+        if (e.target.matches(".nt button")) {
+
+            Ajax.post("http://localhost/remove/{id}", {id: e.target.dataset.id}, function (res) {
+                getAllNotes()
+                }
+            );
+        }
+
+
+    });
+
 
 
     window.addEventListener("load", function () {

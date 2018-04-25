@@ -22,7 +22,7 @@ class ControllerMain extends Controller
     }
     public function action_del()
     {
-        $id = @$this->getUriParam("id");
+        $id = @$_POST["id"];
         if (empty($id)) $this->redirect404();
         ModuleDatabaseConnection::instance()
             ->notes

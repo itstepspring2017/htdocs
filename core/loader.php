@@ -32,7 +32,7 @@ $router->addRoute(new Route("/getAll",
 $router->addRoute(new Route("/remove/{id}",
     [
         "controller" => "main",
-        "action" => "remove"
+        "action" => "del"
     ]));
 
 $router->addRoute(new Route("/add",
