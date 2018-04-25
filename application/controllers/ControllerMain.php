@@ -11,10 +11,7 @@ class ControllerMain extends Controller
 
     public function action_index()
     {
-        $view = new View("main");
-        $view->useTemplate();
-        $view->posts = ModelPost::instance();
-        $this->response($view);
+        return json_encode(ModuleDatabaseConnection::instance()->notes->getAllWhere());
     }
 
     public function action_add()
@@ -41,9 +38,9 @@ class ControllerMain extends Controller
     {
         $id = @$this->getUriParam("id");
         if (empty($id)) $this->redirect404();
-        ModuleDatabaseConnection::instance()
+        $data = ModuleDatabaseConnection::instance()
             ->notes
             ->getFirstWhere("id=?",[$id]);
-
+        return json_encode($data);
     }
 }
