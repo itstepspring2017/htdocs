@@ -1,17 +1,13 @@
 <h1>hi home</h1>
-
-<form id="add">
-    <input type="text " name="name" id="name">
-    <input type="text " name="description" id="desk">
-    <button id="btn">add</button>
-</form>
-
+<input type="text " name="n" id="name">
+<input type="text " name="d" id="desk">
+<button id="btn">add</button>
 
 
 <script>
 
     var btn = document.querySelector("#btn");
-    var name = document.querySelector("#name");
+    var im = document.querySelector("#name");
     var desk = document.querySelector("#desk");
 
 
@@ -44,12 +40,15 @@
 
         e.preventDefault();
 
-        Ajax.post("http://localhost/add",{name:name.value,description:desk.value}, function (res) {
-
+        Ajax.post("http://localhost/add", {name: im.value, description: desk.value}, function (res) {
+                alert("good");
+                im.value = "";
+                desk.value = ""
             }
         )
     })
-    ;
+
+
 
 
 </script>

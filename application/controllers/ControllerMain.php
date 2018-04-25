@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: asus
- * Date: 21.03.2018
- * Time: 13:24
- */
+
 
 class ControllerMain extends Controller
 {
