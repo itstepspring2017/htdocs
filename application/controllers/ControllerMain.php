@@ -8,40 +8,42 @@
 
 class ControllerMain extends Controller
 {
-    private $menuCtrl;
-
-    public function __construct()
-    {
-        $this->menuCtrl = new ControllerMenu();
-        $this->menuCtrl->rightMenu();
-    }
 
     public function action_index()
     {
         $view = new View("main");
         $view->useTemplate();
-        $view->posts = ModelPost::instance()->getTop(5);
-        if(!empty($_SESSION["login_error"])){
-            $view->error = $_SESSION["login_error"];
-            $view->login = $_SESSION["login"];
-            unset($_SESSION["login_error"]);
-            unset($_SESSION["login"]);
-        }
-        $view->rightmenu = $this->menuCtrl->getResponse();
+        $view->posts = ModelPost::instance();
         $this->response($view);
     }
 
-    public function action_register()
+    public function action_add()
     {
-        $view = new View("register");
-        $view->useTemplate();
-        $view->rightmenu = $this->menuCtrl->getResponse();
-        if(!empty($_SESSION["validate_error"])){
-            $view->error = $_SESSION["validate_error"];
-            $view->old = $_SESSION["old"];
-            unset($_SESSION["validate_error"]);
-            unset($_SESSION["old"]);
-        }
-        $this->response($view);
+        $name = @$_POST["name"];
+        $description = @$_POST["description"];
+        if (empty($name) || empty($description)) throw new Exception("enter all fields");
+        ModuleDatabaseConnection::instance()
+            ->notes
+            ->insert(["name"=>$name,"description"=>$description]);
+        $this->redirect(URLROOT);
+    }
+    public function action_del()
+    {
+        $id = @$this->getUriParam("id");
+        if (empty($id)) $this->redirect404();
+        ModuleDatabaseConnection::instance()
+            ->notes
+            ->deleteById((int)$id);
+        $this->redirect(URLROOT);
+    }
+
+    public function action_get()
+    {
+        $id = @$this->getUriParam("id");
+        if (empty($id)) $this->redirect404();
+        ModuleDatabaseConnection::instance()
+            ->notes
+            ->getFirstWhere("id=?",[$id]);
+
     }
 }

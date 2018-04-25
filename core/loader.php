@@ -15,50 +15,20 @@ $router->addRoute(new Route("",
         "controller" => "main",
         "action" => "index"
     ]));
-$router->addRoute(new Route("register",
+$router->addRoute(new Route("/get/{id}",
     [
         "controller" => "main",
-        "action" => "register"
+        "action" => "get"
     ]));
-$router->addRoute(new Route("regaction",
+$router->addRoute(new Route("/remove/{id}",
     [
-        "controller" => "auth",
-        "action" => "register"
+        "controller" => "main",
+        "action" => "remove"
     ]));
-$router->addRoute(new Route("logout",
+$router->addRoute(new Route("/add",
     [
-        "controller" => "auth",
-        "action" => "logout"
-    ]));
-$router->addRoute(new Route("deeplogout",
-    [
-        "controller" => "auth",
-        "action" => "logoutAll"
-    ]));
-$router->addRoute(new Route("login",
-    [
-        "controller" => "auth",
-        "action" => "login"
-    ]));
-$router->addRoute(new Route("post/showall",
-    [
-        "controller" => "post",
-        "action" => "myPosts"
-    ]));
-$router->addRoute(new Route("/post/new",
-    [
-        "controller" => "post",
-        "action" => "new"
-    ]));
-$router->addRoute(new Route("/post/add",
-    [
-        "controller" => "post",
+        "controller" => "main",
         "action" => "add"
-    ]));
-$router->addRoute(new Route("/categories/{id}",
-    [
-        "controller" => "menu",
-        "action" => "showCategory"
     ]));
 try {
     $router->run();
