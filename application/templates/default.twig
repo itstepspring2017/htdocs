@@ -57,11 +57,14 @@
         }
     };
 
-    btn.addEventListener("click", () = > {
-        Ajax.post("http://localhost/add", (res) = > {
+    btn.addEventListener("click", function (e) {
 
-    }
-    )
+        e.preventDefault();
+
+        Ajax.post("http://localhost/add",{name:name.value,description:desk.value}, function (res) {
+
+            }
+        )
     })
     ;
 
