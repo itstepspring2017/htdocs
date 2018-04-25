@@ -1,7 +1,14 @@
-<h1>hi home</h1>
-<input type="text " name="n" id="name">
-<input type="text " name="d" id="desk">
-<button id="btn">add</button>
+<h3>add new note</h3>
+<form>
+    <input type="text " name="n" id="name" required>
+    <input type="text " name="d" id="desk" required>
+    <button id="btn">add</button>
+</form>
+<hr>
+<button id="getAll">getNotes</button>
+<div class="notes">
+
+</div>
 
 
 <script>
@@ -9,6 +16,9 @@
     var btn = document.querySelector("#btn");
     var im = document.querySelector("#name");
     var desk = document.querySelector("#desk");
+    var getAll = document.querySelector("#getAll");
+    var notes = document.querySelector(".notes");
+    var users = [];
 
 
     var Ajax = {
@@ -41,14 +51,44 @@
         e.preventDefault();
 
         Ajax.post("http://localhost/add", {name: im.value, description: desk.value}, function (res) {
-                alert("good");
+
                 im.value = "";
-                desk.value = ""
+                desk.value = "";
             }
-        )
+        );
+        getAllNotes()
+
+    });
+
+    getAll.addEventListener("click", () => {
+        getAllNotes()
+    });
+
+
+    function getAllNotes() {
+        fetch("http://localhost/getAll")
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                notes.innerHTML="";
+                data.forEach(function (post) {
+                    notes.innerHTML += `
+                        <div>
+                             <p>${post.id}</p>
+                             <p>${post.name}</p>
+                             <p>${post.description}</p>
+                        </div>
+                    `;
+                })
+            })
+
+
+    }
+
+
+    window.addEventListener("load", function () {
+        getAllNotes()
     })
-
-
 
 
 </script>

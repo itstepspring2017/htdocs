@@ -15,21 +15,32 @@ $router->addRoute(new Route("",
         "controller" => "home",
         "action" => "home"
     ]));
+
 $router->addRoute(new Route("/get/{id}",
     [
         "controller" => "main",
         "action" => "get"
     ]));
+
+$router->addRoute(new Route("/getAll",
+    [
+        "controller" => "main",
+        "action" => "getAll"
+    ]));
+
+
 $router->addRoute(new Route("/remove/{id}",
     [
         "controller" => "main",
         "action" => "remove"
     ]));
+
 $router->addRoute(new Route("/add",
     [
         "controller" => "main",
         "action" => "add"
     ]));
+
 try {
     $router->run();
 } catch (RouterException $exception) {

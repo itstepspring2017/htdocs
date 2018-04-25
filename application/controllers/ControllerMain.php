@@ -39,4 +39,8 @@ class ControllerMain extends Controller
             ->getFirstWhere("id=?",[$id]);
         return json_encode($data);
     }
+
+    public function action_getAll(){
+        echo json_encode(ModuleDatabaseConnection::instance()->notes->getAllWhere());
+    }
 }
