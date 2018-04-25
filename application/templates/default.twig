@@ -27,6 +27,10 @@
 
 <script>
 
+    var btn = document.querySelector("#btn");
+    var name = document.querySelector("#name");
+    var desk = document.querySelector("#desk");
+
 
     var Ajax = {
         get: function (url, onresponse) {
@@ -53,11 +57,13 @@
         }
     };
 
-    Ajax.post("http://localhost/add",(res)=>{
+    btn.addEventListener("click", () = > {
+        Ajax.post("http://localhost/add", (res) = > {
 
-    });
-
-
+    }
+    )
+    })
+    ;
 
 
 </script>
