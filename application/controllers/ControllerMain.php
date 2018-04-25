@@ -11,11 +11,8 @@ class ControllerMain extends Controller
 
     public function action_index()
     {
-        $view = new View("main");
-        $view->useTemplate();
         return json_encode(ModuleDatabaseConnection::instance()->notes->getAllWhere());
 
-        $this->response($view);
     }
 
     public function action_add()

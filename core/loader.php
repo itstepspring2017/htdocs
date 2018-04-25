@@ -12,8 +12,8 @@ $router = Router::getInstance();
 
 $router->addRoute(new Route("",
     [
-        "controller" => "main",
-        "action" => "index"
+        "controller" => "home",
+        "action" => "home"
     ]));
 $router->addRoute(new Route("/get/{id}",
     [

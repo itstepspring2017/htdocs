@@ -1,0 +1,55 @@
+<h1>hi home</h1>
+
+<form id="add">
+    <input type="text " name="name" id="name">
+    <input type="text " name="description" id="desk">
+    <button id="btn">add</button>
+</form>
+
+
+
+<script>
+
+    var btn = document.querySelector("#btn");
+    var name = document.querySelector("#name");
+    var desk = document.querySelector("#desk");
+
+
+    var Ajax = {
+        get: function (url, onresponse) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState != 4) return;
+                onresponse(xhr.response, xhr.status, xhr.statusText);
+            };
+            xhr.send();
+        },
+        post: function (url, postparams, onresponse) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', url, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState != 4) return;
+                onresponse(xhr.response, xhr.status, xhr.statusText);
+            };
+            var data = new FormData();
+            for (var prop in postparams) {
+                data.append(prop, postparams[prop]);
+            }
+            xhr.send(data);
+        }
+    };
+
+    btn.addEventListener("click", function (e) {
+
+        e.preventDefault();
+
+        Ajax.post("http://localhost/add",{name:name.value,description:desk.value}, function (res) {
+
+            }
+        )
+    })
+    ;
+
+
+</script>
