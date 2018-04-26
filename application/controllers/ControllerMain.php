@@ -35,9 +35,12 @@ class ControllerMain extends Controller
         $id = @$this->getUriParam("id");
         if (empty($id)) $this->redirect404();
         $data = ModuleDatabaseConnection::instance()
+
             ->notes
+
             ->getFirstWhere("id=?",[$id]);
-        return json_encode($data);
+
+        echo json_encode($data);
     }
 
     public function action_getAll(){

@@ -17,6 +17,9 @@
         width: 100%;
         display: block;
     }
+    .postname{
+        cursor: pointer;
+    }
 </style>
 <h3>add new note</h3>
 <form>
@@ -29,6 +32,11 @@
 <div class="notes">
 
 </div>
+<div class="ds">
+
+</div>
+
+
 
 
 <script>
@@ -38,6 +46,7 @@
     var desk = document.querySelector("#desk");
     var getAll = document.querySelector("#getAll");
     var notes = document.querySelector(".notes");
+    var ds = document.querySelector(".ds");
 
 
     var Ajax = {
@@ -85,6 +94,7 @@
 
 
     function getAllNotes() {
+        // <p>${post.description}</p>
         notes.innerHTML = "";
         fetch("http://localhost/getAll")
             .then(res => res.json())
@@ -93,8 +103,8 @@
                     notes.innerHTML += `
                         <div class="nt">
                              <p>${post.id}</p>
-                             <p>${post.name}</p>
-                             <p>${post.description}</p>
+                             <p class="postname" data-id="${post.id}" >name:${post.name}</p>
+
                              <button data-id="${post.id}" >del</button>
                         </div>
                     `;
@@ -108,10 +118,29 @@
         if (e.target.matches(".nt button")) {
 
             Ajax.post("http://localhost/remove/{id}", {id: e.target.dataset.id}, function (res) {
-                getAllNotes()
+                getAllNotes();
+
                 }
             );
         }
+
+        if (e.target.matches(".nt .postname")){
+            ds.innerText="";
+            fetch("http://localhost/get/"+e.target.dataset.id, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+                },
+                body:new FormData({id: e.target.dataset.id})
+
+            }).then(res => res.json()).then(data=>{
+                ds.innerText=data.description
+            })
+
+
+        }
+
 
 
     });
