@@ -5,7 +5,7 @@ class Config{
     {
     }
 
-    public static function load(string $name):?object {
+    public static function load(string $name):?stdClass {
         if(file_exists(APP_CONFIG_PATH.$name.".php")){
             return (object)include APP_CONFIG_PATH.$name.".php";
         }
