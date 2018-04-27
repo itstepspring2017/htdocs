@@ -40,8 +40,7 @@ class ControllerMain extends Controller
 
             ->notes
 
-            ->getFirstWhere("id=?",[$id]);
-        header('Content-Type:application/json');
+            ->getFirstWhere("id=?",[(int)$id]);
 
         $this->response(json_encode($data));
 

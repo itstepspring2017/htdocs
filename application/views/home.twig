@@ -129,15 +129,10 @@
             ds.innerText="";
             fetch("http://localhost/get/"+e.target.dataset.id, {
                 method: 'POST',
-                headers: {
-                    'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
-                },
-                body:new FormData({id: e.target.dataset.id})
-
             }).then(res => res.json()).then(data=>{
                 ds.innerText=data.description
             })
+
 
 
         }
